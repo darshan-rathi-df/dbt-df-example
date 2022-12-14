@@ -1,0 +1,11 @@
+unique_name: some
+action_reference: some
+display_name: some
+description: ''
+state: draft
+parameters:
+- param_name: table_name
+  df_param_type: table
+  display_name: table_name
+  user_input_required: true
+source_type: df_sql

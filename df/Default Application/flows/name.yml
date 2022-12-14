@@ -1,0 +1,33 @@
+unique_name: name
+flow_actions:
+- action_reference: single_variable_pie_plot
+  parameters:
+  - param_name: axis
+    global_parameter: axis
+  - param_name: summary_type
+    global_parameter: summ
+  - param_name: data
+    global_parameter: data
+  - param_name: sql_filter
+    default_value: optional
+  display_name: single_variable_pie_plot
+  stage_name: Stage 1
+  application_name: DataFacadeOOB
+display_name: name
+parameters:
+- param_name: axis
+  df_param_type: column
+  display_name: axis
+  user_input_required: true
+- param_name: data
+  df_param_type: table
+  display_name: data
+  user_input_required: true
+- param_name: summ
+  df_param_type: string
+  display_name: summ
+  single_select_options:
+  - Count
+  - Count Percentage
+  user_input_required: true
+description: ''

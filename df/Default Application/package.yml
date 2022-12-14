@@ -1,0 +1,5 @@
+name: Default Application
+version: 0.1
+display_name: Default Application
+description: Default Application to hold stray Actions/Workflows
+state: draft
