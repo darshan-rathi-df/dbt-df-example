@@ -1,0 +1,13 @@
+unique_name: 'first '
+action_reference: 'first '
+display_name: 'first '
+description: hello
+state: draft
+parameters:
+- param_name: input_table
+  df_param_type: table
+  display_name: Input Table
+  description: Input Raw Table
+  user_input_required: true
+  is_optional: false
+source_type: python

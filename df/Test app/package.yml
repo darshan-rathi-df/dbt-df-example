@@ -1,0 +1,5 @@
+name: Test app
+version: 0.1
+display_name: Test app
+description: Description
+state: draft

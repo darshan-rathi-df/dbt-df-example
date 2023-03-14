@@ -1,0 +1,5 @@
+prompt: give me 1000 rows
+reference: 'Test app.first '
+answer_type: Action
+parameter_values: {}
+author: darshan.rathi@data-facade.com
