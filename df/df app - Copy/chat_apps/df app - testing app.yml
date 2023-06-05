@@ -1,0 +1,40 @@
+unique_name: df app - testing app
+icon_code: '3'
+cover_photo_id: '18'
+allowed_user_emails: darshan.rathi@data-facade.com
+table_config:
+- table_name: local.ActionDefinition
+- table_name: local.ActionInstance
+- table_name: local.ActionParameterInstance
+- table_name: local.ActionParameterDefinition
+- table_name: local.ActionTemplate
+- table_name: local.ProviderParameterInstance
+- table_name: local.ColumnProperties
+- table_name: local.Dashboard
+- table_name: local.ComponentDefinition
+- table_name: local.ProfileRequests
+- table_name: local.ProviderDefinition
+- table_name: local.TrainingData
+- table_name: local.ActionExecution
+- table_name: local.Chat
+- table_name: local.DataCheckDefinition
+- table_name: local.OptimisticTag
+- table_name: local.Chart
+- table_name: local.Tag
+- table_name: local.RelationshipMap
+- table_name: local.ChatContext
+- table_name: local.ProfileData
+- table_name: local.PredictionModel
+- table_name: local.Message
+- table_name: local.DownloadTable
+- table_name: local.ChatApplication
+- table_name: local.Application
+- table_name: local.ProviderInstance
+default_chat_context: All timestamps are in UNIX in milliseconds
+chat_contexts:
+- keywords:
+  - chat apps
+  table_config:
+  - table_name: fd8012fa-62c1-4fbf-b88f-153739ede811
+training_data:
+- df app - Copy.number_of_messages_sent_in_last_5_days_f3077a17-94d8-4fcf-b22d-ca05e35d4153
