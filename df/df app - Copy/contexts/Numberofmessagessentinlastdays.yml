@@ -1,0 +1,10 @@
+prompt: Number of messages sent in last 5 days
+reference: df app - Copy.number_of_messages_sent_in_last_5_days_f3077a17-94d8-4fcf-b22d-ca05e35d4153
+answer_type: Action
+parameter_values: {}
+author: darshan.rathi@data-facade.com
+template: 'SELECT COUNT(*) AS num_messages_sent
+
+  FROM darshan_locals.Message
+
+  WHERE SentOn >= (EXTRACT(EPOCH FROM NOW()) * 1000) - (5 * 24 * 60 * 60 * 1000)'

@@ -1,0 +1,5 @@
+unique_name: number_of_messages_sent_in_last_5_days_f3077a17-94d8-4fcf-b22d-ca05e35d4153
+action_reference: number_of_messages_sent_in_last_5_days_f3077a17-94d8-4fcf-b22d-ca05e35d4153
+display_name: Number of messages sent in last 5 days
+state: draft
+source_type: df_sql
