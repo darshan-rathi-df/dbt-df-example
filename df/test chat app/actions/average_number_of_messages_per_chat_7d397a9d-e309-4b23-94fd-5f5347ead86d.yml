@@ -1,0 +1,5 @@
+unique_name: average_number_of_messages_per_chat_7d397a9d-e309-4b23-94fd-5f5347ead86d
+action_reference: average_number_of_messages_per_chat_7d397a9d-e309-4b23-94fd-5f5347ead86d
+display_name: average number of messages per chat
+state: draft
+source_type: df_sql

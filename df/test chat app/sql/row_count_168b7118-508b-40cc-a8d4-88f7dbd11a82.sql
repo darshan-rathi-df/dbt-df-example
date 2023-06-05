@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM darshan_locals.Message

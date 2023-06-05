@@ -1,0 +1,28 @@
+unique_name: test chat app
+description: hey there
+icon_code: '6'
+cover_photo_id: '8'
+allowed_user_emails: dasfsd,das
+editor_user_emails: darshan.rathi@data-facade.com,dasfsd,das
+table_config:
+- table_name: LocalDB.Quarterly_Cohort_Retentionxlsx_-_Cleaned
+  columns_to_ignore:
+  - Q2_'18
+  - Column-7
+  - Column-5
+  - Customer:_Earliest_Start_Date_(FY_Quarter)
+  - Q2_'20
+- table_name: LocalDB.all_stocks_2017-01-01_to_2018-01-01
+  columns_to_ignore:
+  - High
+- table_name: local.PredictionModel
+- table_name: local.Message
+- table_name: local.DataCheckDefinition
+  columns_to_ignore:
+  - UniqueName
+- table_name: local.Chat
+default_chat_context: my default context
+training_data:
+- test chat app.row_count_168b7118-508b-40cc-a8d4-88f7dbd11a82
+- test chat app.total_messages_sent_by_darshan_rathi_ed88b46a-2a48-4c01-a971-ccdfe608a2c2
+- test chat app.average_number_of_messages_per_chat_7d397a9d-e309-4b23-94fd-5f5347ead86d

@@ -1,0 +1,12 @@
+prompt: average number of messages per chat
+reference: test chat app.average_number_of_messages_per_chat_7d397a9d-e309-4b23-94fd-5f5347ead86d
+answer_type: Action
+parameter_values: {}
+author: darshan.rathi@data-facade.com
+template: 'SELECT c."Name", COUNT(m."Id") / COUNT(DISTINCT c."Id") AS avg_messages_per_chat
+
+  FROM darshan_locals."Chat" c
+
+  JOIN darshan_locals."Message" m ON c."Id" = m."ChatId"
+
+  GROUP BY c."Name"'
