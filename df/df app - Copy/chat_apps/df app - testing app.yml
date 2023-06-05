@@ -1,5 +1,6 @@
 unique_name: df app - testing app
-icon_code: '3'
+description: some
+icon_code: '4'
 cover_photo_id: '18'
 allowed_user_emails: darshan.rathi@data-facade.com
 table_config:
@@ -35,6 +36,10 @@ table_config:
 - table_name: local.ProviderInstance
 default_chat_context: 'All timestamps are in UNIX in milliseconds
 
+
+  ''
+
+  ''
 
   ""
 
