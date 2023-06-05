@@ -4,6 +4,9 @@ cover_photo_id: '18'
 allowed_user_emails: darshan.rathi@data-facade.com
 table_config:
 - table_name: local.ActionDefinition
+  columns_to_ignore:
+  - ApplicationId
+  - PresentationFormat
 - table_name: local.ActionInstance
 - table_name: local.ActionParameterInstance
 - table_name: local.ActionParameterDefinition
