@@ -1,0 +1,18 @@
+unique_name: Messages App
+description: Messages details
+icon_color_code: '#F4FE81'
+icon_code: '8'
+cover_photo_id: '20'
+allowed_user_emails: Everyone
+editor_user_emails: Everyone
+table_config:
+- table_name: local.Message
+default_chat_context: All timestamps are in UNIX in milliseconds
+chat_contexts:
+- keywords:
+  - message
+  - messages
+  table_config:
+  - table_name: local.Message
+training_data:
+- Messages App.how_many_messages_sent_in_last_2_days_b1e65bef-79c4-4be2-9368-c1634450b23a
