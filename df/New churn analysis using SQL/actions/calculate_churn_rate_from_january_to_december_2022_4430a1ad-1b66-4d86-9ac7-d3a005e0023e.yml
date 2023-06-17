@@ -1,0 +1,5 @@
+unique_name: calculate_churn_rate_from_january_to_december_2022_4430a1ad-1b66-4d86-9ac7-d3a005e0023e
+action_reference: calculate_churn_rate_from_january_to_december_2022_4430a1ad-1b66-4d86-9ac7-d3a005e0023e
+display_name: calculate churn rate from January to December 2022
+state: draft
+source_type: df_sql

@@ -1,0 +1,5 @@
+unique_name: show_me_the_churn_rate_for_each_month_from_january_to_may_2023?_cf63f8dd-ed02-4029-b3bf-b56a981af4d7
+action_reference: show_me_the_churn_rate_for_each_month_from_january_to_may_2023?_cf63f8dd-ed02-4029-b3bf-b56a981af4d7
+display_name: show me the churn rate for each month from January to May 2023?
+state: draft
+source_type: df_sql
