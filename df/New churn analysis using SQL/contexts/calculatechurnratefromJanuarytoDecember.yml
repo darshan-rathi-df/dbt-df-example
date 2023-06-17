@@ -1,0 +1,40 @@
+prompt: calculate churn rate from January to December 2022
+reference: New churn analysis using SQL.calculate_churn_rate_from_january_to_december_2022_4430a1ad-1b66-4d86-9ac7-d3a005e0023e
+answer_type: Action
+parameter_values: {}
+author: vishal.das@data-facade.com
+template: "WITH \"customer_orders\" AS (\n  SELECT\n    \"fact_order_table\".\"customer_id\"\
+  ,\n    DATE_TRUNC('month', \"fact_order_table\".\"created_at\") AS \"order_month\"\
+  ,\n    COUNT(DISTINCT DATE(\"fact_order_table\".\"created_at\")) AS \"n_purchases\"\
+  ,\n    MAX(\"fact_order_table\".\"created_at\") AS \"last_purchase_date\",\n   \
+  \ SUM(\"fact_order_table\".\"total_price\") AS \"total_spent\"\n  FROM \"public\"\
+  .\"fact_order_table\"\n  GROUP BY\n    \"fact_order_table\".\"customer_id\",\n \
+  \   \"order_month\"\n), \"customer_recency\" AS (\n  SELECT\n    \"dim_customer_table\"\
+  .\"id\" AS \"customer_id\",\n    DATE_TRUNC('month', MAX(\"dim_customer_table\"\
+  .\"created_at\")) AS \"last_purchase_month\",\n    EXTRACT(day FROM AGE('2022-12-31',\
+  \ MAX(\"dim_customer_table\".\"created_at\"))) AS \"diff_date\"\n  FROM \"public\"\
+  .\"dim_customer_table\"\n  GROUP BY\n    \"customer_id\"\n), \"customer_scores\"\
+  \ AS (\n  SELECT\n    \"customer_orders\".\"customer_id\",\n    \"customer_orders\"\
+  .\"order_month\",\n    \"customer_orders\".\"n_purchases\",\n    \"customer_orders\"\
+  .\"total_spent\",\n    \"customer_recency\".\"diff_date\",\n    CASE\n      WHEN\
+  \ \"customer_recency\".\"diff_date\" IS NULL\n      THEN 0\n      ELSE (\n     \
+  \   (\n          30 - \"customer_recency\".\"diff_date\"\n        ) / 30.0\n   \
+  \   ) * 100\n    END AS \"r_score\",\n    CASE\n      WHEN \"customer_orders\".\"\
+  n_purchases\" IS NULL\n      THEN 0\n      ELSE (\n        \"customer_orders\".\"\
+  n_purchases\" / 30.0\n      ) * 100\n    END AS \"f_score\"\n  FROM \"customer_orders\"\
+  \n  LEFT JOIN \"customer_recency\"\n    ON \"customer_orders\".\"customer_id\" =\
+  \ \"customer_recency\".\"customer_id\"\n), \"customer_loyalty\" AS (\n  SELECT\n\
+  \    \"customer_id\",\n    \"order_month\",\n    \"n_purchases\",\n    \"total_spent\"\
+  ,\n    \"r_score\",\n    \"f_score\",\n    (\n      \"r_score\" * \"f_score\"\n\
+  \    ) / 10000.0 AS \"loyalty_score\"\n  FROM \"customer_scores\"\n), \"customer_churn\"\
+  \ AS (\n  SELECT\n    \"customer_id\",\n    \"order_month\",\n    \"n_purchases\"\
+  ,\n    \"total_spent\",\n    \"r_score\",\n    \"f_score\",\n    \"loyalty_score\"\
+  ,\n    CASE WHEN \"loyalty_score\" < 0 THEN 1 WHEN \"loyalty_score\" > 0.2 THEN\
+  \ 0 ELSE 1 END AS \"churn\"\n  FROM \"customer_loyalty\"\n), \"customer_churn_rate\"\
+  \ AS (\n  SELECT\n    \"order_month\",\n    COUNT(DISTINCT \"customer_id\") AS \"\
+  total_customers\",\n    SUM(\"churn\") AS \"churned_customers\",\n    (\n      SUM(\"\
+  churn\") / CAST(COUNT(DISTINCT \"customer_id\") AS REAL)\n    ) * 100 AS \"churn_rate\"\
+  \n  FROM \"customer_churn\"\n  GROUP BY\n    \"order_month\"\n)\nSELECT\n  TO_CHAR(\"\
+  order_month\", 'YYYY-MM') AS \"month\",\n  \"total_customers\",\n  \"churned_customers\"\
+  ,\n  \"churn_rate\"\nFROM \"customer_churn_rate\"\nWHERE\n  \"order_month\" BETWEEN\
+  \ '2022-01-01' AND '2022-12-31'"

@@ -1,0 +1,5 @@
+unique_name: calculate_the_churn_rate_for_each_month_from_january_to_may_2022_d5301364-0d2c-4486-8d6b-51a157606741
+action_reference: calculate_the_churn_rate_for_each_month_from_january_to_may_2022_d5301364-0d2c-4486-8d6b-51a157606741
+display_name: calculate the churn rate for each month from January to May 2022
+state: draft
+source_type: df_sql

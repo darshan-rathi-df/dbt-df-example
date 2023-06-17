@@ -1,0 +1,5 @@
+unique_name: monthly_churn_rate_for_2022_5ee631e1-458d-43e0-8e2e-8e8bb5ca1a8d
+action_reference: monthly_churn_rate_for_2022_5ee631e1-458d-43e0-8e2e-8e8bb5ca1a8d
+display_name: monthly churn rate for 2022
+state: draft
+source_type: df_sql

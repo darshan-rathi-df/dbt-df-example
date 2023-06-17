@@ -1,0 +1,129 @@
+unique_name: churn analysis
+description: App to perform churn analysis on existing customers
+icon_color_code: '#5ECE9F'
+icon_code: '1'
+cover_photo_id: '18'
+allowed_user_emails: vishal.das@data-facade.com,darshan.rathi@data-facade.com
+editor_user_emails: vishal.das@data-facade.com,darshan.rathi@data-facade.com
+table_config:
+- table_name: db_pg.dim_customer_address_table
+  columns_to_ignore:
+  - updated_at
+  - ingest_time
+  - id
+- table_name: db_pg.dim_customer_table
+  columns_to_ignore:
+  - updated_at
+  - ingest_time
+- table_name: db_pg.fact_order_table
+  columns_to_ignore:
+  - updated_at
+  - ingest_time
+  - id
+default_chat_context: "\n1. The 'created_at' column refers to the date when the customers\
+  \ placed their order and is in datetime format. Do not make any conversions and\
+  \ use this column directly. \n2. To prevent ambiguous column error, prefix the column\
+  \ name with the table or alias from which it comes. \n3. Do not use EXTRACT or ROUND\
+  \ function \n"
+chat_contexts:
+- keywords:
+  - recency
+  - R-score
+  table_config:
+  - table_name: db_pg.fact_order_table
+    columns_to_ignore:
+    - ingest_time
+    - updated_at
+  behaviour: 'Step1. Calculate the difference between the reference date at which
+    recency is calculated and the last date in which the customer made a purchase.
+    Lets call this DIFF_DATE
+
+    Step2. If Window length is mentioned in the question than consider it, if not
+    the default window length is 30 days. Calculate R = ((Window length - DIFF_DATE)/Window
+    length) * 100
+
+    '
+- keywords:
+  - frequency
+  - F-score
+  table_config:
+  - table_name: db_pg.fact_order_table
+    columns_to_ignore:
+    - ingest_time
+    - updated_at
+  behaviour: "Step1. Calculate 'N_purchases', the number of unique days with purchases\
+    \ in the time interval between (reference date - window length) and reference\
+    \ date for each customer. For example: if the reference date is 30-April-2023\
+    \ and the window length is 30 days, then only consider the number of unique days\
+    \ with purchase between 01-April-2023 and 30-April-2023. If Window length is mentioned\
+    \ in the question than consider it, if not the default window length is 30 days.\
+    \ \nStep2. Calculate F-score = (N_purchases/Window length)*100, for each customer"
+- keywords:
+  - loyalty score
+  - loyal
+  table_config:
+  - table_name: db_pg.fact_order_table
+    columns_to_ignore:
+    - ingest_time
+    - updated_at
+  behaviour: "Step1: Calculate the R-score \nStep2: Calculate the F-score \nStep 3:\
+    \ Calculate the Loyalty Score by taking the product of R-score and F-score, and\
+    \ divide by the square of 100 (since both R-score and F-score were expressed in\
+    \ percentages). If the Loyalty Score turns out to be less than 0, set it to 0.\
+    \ Use left join if merging two tables and fill missing values with 0.\n\nCalculate\
+    \ R-score using the following steps:\nStep1. Calculate the difference between\
+    \ the reference date at which recency is calculated and the last date in which\
+    \ the customer made a purchase. Lets call this DIFF_DATE\nStep2. If Window length\
+    \ is mentioned in the question than consider it, if not the default window length\
+    \ is 30 days. Calculate R = ((Window length - DIFF_DATE)/Window length) * 100\n\
+    \nCalculate F-score using the following steps:\nStep1. Calculate 'N_purchases',\
+    \ the number of unique days with purchases in the time interval between (reference\
+    \ date - window length) and reference date for each customer. For example: if\
+    \ the reference date is 30-April-2023 and the window length is 30 days, then only\
+    \ consider the number of unique days with purchase between 01-April-2023 and 30-April-2023.\
+    \ If Window length is mentioned in the question than consider it, if not the default\
+    \ window length is 30 days. \nStep2. Calculate F-score = (N_purchases/Window length)*100,\
+    \ for each customer\n"
+- keywords:
+  - churn
+  - churned
+  table_config:
+  - table_name: db_pg.fact_order_table
+    columns_to_ignore:
+    - updated_at
+    - ingest_time
+  - table_name: db_pg.dim_customer_table
+    columns_to_ignore:
+    - ingest_time
+    - updated_at
+  - table_name: db_pg.dim_customer_address_table
+    columns_to_ignore:
+    - ingest_time
+    - updated_at
+  behaviour: "Step1: Calculate the R-score \nStep2: Calculate the F-score \nStep3:\
+    \ Calculate the Loyalty Score by taking the product of R-score and F-score, and\
+    \ divide by the square of 100 (since both R-score and F-score were expressed in\
+    \ percentages). If the Loyalty Score turns out to be less than 0, set it to 0.\
+    \ Use \"left join\" if merging two tables and fill missing values with 0.\nStep4:\
+    \ Calculate the churn for each customer using the Loyalty Score. If the Loyalty\
+    \ score is greater than 0.2, Churn is set to 0 (indicating the customer is still\
+    \ active), else Churn is set to 1 (indicating the customer has churned).\nStep5:\
+    \ Calculate the churn rate as the ratio of the number of churned customers divided\
+    \ by the total number of customers, expressed the ratio as percentage. The total\
+    \ number of customers is the count of all customers till the reference date. \n\
+    \nCalculate R-score using the following steps:\nStep1. Calculate the difference\
+    \ between the reference date at which recency is calculated and the last date\
+    \ in which the customer made a purchase. Lets call this DIFF_DATE\nStep2. If Window\
+    \ length is mentioned in the question than consider it, if not the default window\
+    \ length is 30 days. Calculate R = ((Window length - DIFF_DATE)/Window length)\
+    \ * 100\n\nCalculate F-score using the following steps:\nStep1. Calculate 'N_purchases',\
+    \ the number of unique days with purchases in the time interval between (reference\
+    \ date - window length) and reference date for each customer. For example: if\
+    \ the reference date is 30-April-2023 and the window length is 30 days, then only\
+    \ consider the number of unique days with purchase between 01-April-2023 and 30-April-2023.\
+    \ If Window length is mentioned in the question than consider it, if not the default\
+    \ window length is 30 days. \nStep2. Calculate F-score = (N_purchases/Window length)*100,\
+    \ for each customer\n\nDo not use EXTRACT, DATE_PART or ROUND function. Just give\
+    \ the PostgreSQL query. Do not give any assumption or explanation. "
+training_data:
+- New churn analysis using SQL.calculate_churn_rate_from_january_to_december_2022_4430a1ad-1b66-4d86-9ac7-d3a005e0023e
