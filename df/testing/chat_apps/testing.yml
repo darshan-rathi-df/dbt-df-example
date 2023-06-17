@@ -1,0 +1,7 @@
+unique_name: testing
+icon_color_code: '#A998FF'
+icon_code: '6'
+cover_photo_id: '22'
+allowed_user_emails: darshan.rathi@data-facade.com
+editor_user_emails: darshan.rathi@data-facade.com
+default_chat_context: hello hello
